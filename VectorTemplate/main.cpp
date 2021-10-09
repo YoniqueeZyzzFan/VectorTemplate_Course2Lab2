@@ -102,7 +102,7 @@ std::string Input_Number() {
 	}
 	return input;
 }
-// for int/double/float
+// for int/double/float/complex float/ complex double
 template <typename TYPE>
 void MenuForTwoVectors(vector<TYPE>& vec1, vector<TYPE> vec2)
 {
@@ -384,6 +384,13 @@ int main()
 		case 3: {
 			system("cls");
 			MenuForTwoVectors(a_float, b_float);
+			break;
+		}
+		case 4: {
+			a_cd.PushBack(std::complex<double>(2, 3));
+			b_cd.PushBack(std::complex<double>(1, 1));
+			std::complex<double> x = a_cd * b_cd;
+			std::cout << x;
 			break;
 		}
 		}

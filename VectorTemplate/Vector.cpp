@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Vector.h"
+#include <complex>
 
 template <typename T>
 vector<T>::vector() {  // CONSTRUCTION
@@ -112,12 +113,35 @@ vector<T> vector<T>::operator-= (const vector<T>& vec) {    //OperatorMinusEqual
 	return *this;
 }
 
-template <typename T>
-T vector<T>::operator* (const vector<T>& vec) {   // OperatorScalarMullti
-	if (size != vec.size) throw("Difference between sizes");
+//template <typename T>
+//T vector<T>::operator* (const vector<T>& vec) {   // OperatorScalarMullti
+//	if (size != vec.size) throw("Difference between sizes");
+//	T result = 0;
+//	for (size_t i = 0; i < size; ++i) {
+//		result += vec.v[i] * v[i];
+//	}
+//	return result;
+//}
+template<typename T>
+T operator* (const vector<T>& vec1, const vector<T>& vec2)
+{
+	if (vec1.GetSize() != vec2.GetSize()) throw("Difference between sizes");
+	size_t size = vec1.GetSize();
 	T result = 0;
 	for (size_t i = 0; i < size; ++i) {
-		result += vec.v[i] * v[i];
+	result += vec1[i] * vec2[i];
+	}
+	return result;
+}
+
+template<typename T>
+std::complex<T> operator* (const vector<std::complex<T>>& vec1, const vector<std::complex<T>>& vec2)
+{
+	if (vec1.GetSize() != vec2.GetSize()) throw("Difference between sizes");
+	size_t size = vec1.GetSize();
+	std::complex<T> result = 0;
+	for (size_t i = 0; i < size; ++i) {
+		result += std::complex<T>(vec1[i].real() * vec2[i].real(), vec1[i].imag()*vec2[i].imag()*(-1));
 	}
 	return result;
 }
@@ -139,7 +163,7 @@ vector<T> vector<T>::operator*= (const T x) {   //OperatorMulltipliedEqualNumber
 }
 
 template <typename T>
-vector<T> vector<T>::operator* (const double x) {  // OperatorMultipliedbyNumberReturnNew
+vector<T> vector<T>::operator* (const T x) {  // OperatorMultipliedbyNumberReturnNew
 	vector<T> Newbie = *this;
 	Newbie *= x;
 	return Newbie;
@@ -155,7 +179,7 @@ vector<T> vector<T>::operator/= (const T x) {   // OperatorDivideEqual
 }
 
 template <typename T>
-vector<T> vector<T>::operator/ (const double x) {    // OperatorDivide
+vector<T> vector<T>::operator/ (const T x) {    // OperatorDivide
 	if (x == 0) throw("Cant divide by zero");
 	vector<T> Newbie = *this;
 	Newbie /= x;
