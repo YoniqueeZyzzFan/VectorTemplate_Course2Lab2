@@ -20,6 +20,7 @@ vector<T>::vector(const size_t size) {  // CONSTRUCTION PARAM
 	this->size = size;
 	v = new T[capacity];
 	for (size_t i = 0; i < size; ++i) {
+		if (size >= capacity) break;
 		v[i] = 0;
 	}
 }
@@ -43,18 +44,18 @@ size_t vector<T>::GetSize() const {  //GetSize
 
 template <typename T>
 T& vector<T>::operator[] (const size_t index) {
-	if (index > size) throw ("Index is out of range");
+	if (index >= size) throw ("Index is out of range");
 	return v[index];
 }
 
 template <typename T>
 T vector<T>::operator[] (const size_t index) const {       // SquareBrackets
-	if (index > size) throw("Index is out of ragne");
+	if (index >= size) throw("Index is out of ragne");
 	return v[index];
 }
 
 template <typename T>
-vector<T> vector<T>::operator+= (const vector<T>& vec) {                        // OperatorPlusEqual
+vector<T> vector<T>::operator+= (const vector<T>& vec) {       // OperatorPlusEqual
 	if (size != vec.size) throw("Difference between sizes");
 	for (size_t i = 0; i < size; ++i) {
 		v[i] += vec.v[i];
@@ -112,9 +113,9 @@ vector<T> vector<T>::operator-= (const vector<T>& vec) {    //OperatorMinusEqual
 }
 
 template <typename T>
-double vector<T>::operator* (const vector<T>& vec) {   // OperatorScalarMullti
+T vector<T>::operator* (const vector<T>& vec) {   // OperatorScalarMullti
 	if (size != vec.size) throw("Difference between sizes");
-	double result = 0;
+	T result = 0;
 	for (size_t i = 0; i < size; ++i) {
 		result += vec.v[i] * v[i];
 	}
@@ -130,7 +131,7 @@ vector<T> vector<T>::operator*= (const vector<T>& vec) {  //OperatorMulltipliedE
 }
 
 template <typename T>
-vector<T> vector<T>::operator*= (const double x) {   //OperatorMulltipliedEqualNumber
+vector<T> vector<T>::operator*= (const T x) {   //OperatorMulltipliedEqualNumber
 	for (size_t i = 0; i < size; ++i) {
 		v[i] = v[i] * x;
 	}
@@ -145,7 +146,7 @@ vector<T> vector<T>::operator* (const double x) {  // OperatorMultipliedbyNumber
 }
 
 template <typename T>
-vector<T> vector<T>::operator/= (const double x) {   // OperatorDivideEqual
+vector<T> vector<T>::operator/= (const T x) {   // OperatorDivideEqual
 	if (x == 0) throw("Cant divide by zero");
 	for (size_t i = 0; i < size; ++i) {
 		v[i] /= x;
@@ -182,7 +183,7 @@ bool vector<T>::operator!= (const vector<T>& vec) {     // OperatorNotEqual
 
 template <typename T>
 void vector<T>::Erase(const size_t index) {  //MethodErase
-	if (index > size) throw ("Index is out of range");
+	if (index >= size) throw ("Index is out of range");
 	for (size_t i = index; i < size - 1; ++i) {
 		v[i] = v[i + 1];
 	}
@@ -190,12 +191,13 @@ void vector<T>::Erase(const size_t index) {  //MethodErase
 }
 
 template <typename T>
-void vector<T>::PushBack(const T data) { //MethodPushBack
+void vector<T>::PushBack(const T &data) { //MethodPushBack
 	if (capacity <= size + 1) {
 		capacity += grow_size;
 		T* temp = new T[capacity];
 		for (size_t i = 0; i < size; i++)
 		{
+			if (size >= capacity) break;
 			temp[i] = 0;
 		}
 		if (size < capacity)
@@ -232,7 +234,7 @@ template <typename T>
 std::ostream& operator<<(std::ostream& stream, const vector<T>& v) {
 	stream << "Size : " << v.GetSize() << std::endl;
 	for (size_t i = 0; i < v.GetSize(); ++i) {
-		stream << i + 1 << " : " << v[i] << std::endl;
+		stream << i + 1 << " : " << v[i]<< std::endl;
 	}
 	return stream;
 }
@@ -252,30 +254,3 @@ vector<T> operator*= (const double x, vector<T>& vec)
 	vec = vec * x;
 	return vec;
 }
-
-
-//class ComplexNumber {
-//	double _re;
-//	double _im;
-//public:
-//	...
-//	ComplexNumber operator+ (const ComplexNumber& rhs)
-//	{
-//		_re += rhs._re;
-//		_im += rhs._im;
-//		return *this;
-//	}
-//};
-
-//class Point //объ¤вление класса 
-//{
-//private:
-//	double x, y; // пол¤ класса
-//public:
-//	Point() :x(3), y(3) {}
-//	void Print() { std::cout << "Its your point(x,y) - " << x << " " << y << std::endl; }//метод класса
-//};
-//int main()
-//{
-//	Point my;//ќбъект класса
-//}

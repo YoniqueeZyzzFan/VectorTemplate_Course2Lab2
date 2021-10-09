@@ -20,16 +20,16 @@ public:
 	vector& operator= (const vector& vec); //OperatorEqual
 	vector operator- (const vector& vec); // OperatorMinus
 	vector operator-= (const vector& vec); //OperatorMinusEqual
-	double operator* (const vector& vec); // OperatorScalarMullti
+	T  operator* (const vector& vec); // OperatorScalarMullti
 	vector operator*= (const vector& vec); //OperatorMulltipliedEqualVector
-	vector operator*= (const double x); //OperatorMulltipliedEqualNumber
+	vector operator*= (const T x); //OperatorMulltipliedEqualNumber
 	vector operator* (const double x); // OperatorMultipliedbyNumberReturnNew
-	vector operator/= (const double x); // OperatorDivideEqual
+	vector operator/= (const T x); // OperatorDivideEqual
 	vector operator/ (const double x); // OperatorDivide
 	bool operator== (const vector& vec); //OperatorIsEqual
 	bool operator!= (const vector& vec); // OperatorNotEqual
 	void Erase(const size_t index); //MethodErase
-	void PushBack(const T data);  //MethodPushBack
+	void PushBack(const T& data);  //MethodPushBack
 	~vector();
 };
 template <typename T>
