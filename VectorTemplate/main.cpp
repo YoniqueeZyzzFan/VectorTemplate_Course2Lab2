@@ -1,5 +1,4 @@
 ﻿#include "Vector.h"
-#include "Vector.cpp"
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -70,7 +69,7 @@ void PrintChoicesAdditional()
 
 void PrintStart()
 {
-	std::cout << " Press 1 - work w/ int vector\n Press 2 - work w/ double vector\n Press 3 - work w/ float vector\n Press 4 - work w/ complex<float> vector\n";
+	std::cout << " Press 1 - work w/ int vector\n Press 2 - work w/ double vector\n Press 3 - work w/ float vector\n Press 4 - work w/ complex float vector\n";
 	std::cout << " Press 5 - work w/ complex double vector\n Press 0 - exit";
 }
 std::string Input_Number() {
@@ -102,12 +101,13 @@ std::string Input_Number() {
 	}
 	return input;
 }
-// for int/double/float/complex float/ complex double
 template <typename TYPE>
 void MenuForTwoVectors(vector<TYPE>& vec1, vector<TYPE> vec2)
 {
 	bool flag = true;
 	while (flag) {
+		std::cout << vec1;
+		std::cout << vec2;
 		PrintChoices();
 		long int choice = Number_needed(0, 6, "Enter a number in range 0-6: ");
 		switch (choice) {
@@ -307,7 +307,7 @@ void MenuForTwoVectors(vector<TYPE>& vec1, vector<TYPE> vec2)
 			system("cls");
 			break;
 		}
-		case 5: {
+		case 5: { //multivectors
 			system("cls");
 			try {
 				std::cout << "vector " << vec1 << "\n*\n" << "vector" << vec2 << "\n = \n" << vec1 * vec2 << "\n";
@@ -333,24 +333,252 @@ void MenuForTwoVectors(vector<TYPE>& vec1, vector<TYPE> vec2)
 		}
 	}
 } 
-//void PrintALL(vector<int>& x, vector<int> &y,
-//              vector<double>& x1, vector<double>& y1,
-//              vector<float>& x2, vector<float>& y2,
-//	          vector<std::complex<double>>& x3, vector<std::complex<double>>& y3,
-//	          vector<std::complex<float>>& x4, vector<std::complex<float>>& y4)
-//{
-//	std::cout << " Int :   \n" << x << y;
-//	std::cout << " Double :   \n" << x1 << y1;
-//	std::cout << " Float :   \n" << x2 << y2;
-//	std::cout << " ComplexDouble :   \n" << x3 << y3;
-//	std::cout << " ComplexFloat :   \n" << x4 << y4;
-//}
+template <typename TYPE>
+void MenuForTwoVectors(vector<std::complex<TYPE>>& vec1, vector<std::complex<TYPE>> vec2)
+{
+	bool flag = true;
+	while (flag) {
+		std::cout << vec1;
+		std::cout << vec2;
+		PrintChoices();
+		long int choice = Number_needed(0, 5, "Enter a number in range 0-5: ");
+		switch (choice) {
+		case 0: {
+			flag = false;
+			break;
+		}
+		case 1: {
+			bool work2 = true;
+			while (work2)
+			{
+				system("cls");
+				std::cout << "You are working with first vector" << std::endl;
+				std::cout << vec1 << std::endl;
+				PrintChoicesAdditional();
+				long int key2 = Number_needed(0, 5, "Enter a number in range 0-5: ");
+				switch (key2)
+				{
+				case 0: // exit
+				{
+					work2 = false;
+					break;
+				}
+				case 1: // edit element
+				{
+					try {
+						long int index = Number_needed(LONG_MIN, LONG_MAX, "\nInput index: ");
+						index--;
+						vec1[index];
+						std::cout << "\nInput real part: ";
+						TYPE re = To_Number<TYPE>(Input_Number());
+						std::cout << "\nInput imag part: ";
+						TYPE im = To_Number<TYPE>(Input_Number());
+						vec1[index] = std::complex<TYPE>(re, im);
+					}
+					catch (const char* err)
+					{
+						std::cout << err << std::endl;
+						system("pause");
+					}
+					break;
+				}
+				case 2: // multiply by number
+				{
+					TYPE value = To_Number<TYPE>(Input_Number());
+					vec1 *= std::complex<TYPE>(value,value);
+					break;
+				}
+				case 3: // divide by number
+				{
+					TYPE value = To_Number<TYPE>(Input_Number());
+					try { vec1 /= value; }
+					catch (const char* err)
+					{
+						std::cout << err << std::endl;
+						system("pause");
+					}
+					break;
+				}
+				case 4: //pushback
+				{
+					std::cout << "\nInput real part: ";
+					TYPE re = To_Number<TYPE>(Input_Number());
+					std::cout << "\nInput imag part: ";
+					TYPE im = To_Number<TYPE>(Input_Number());
+					vec1.PushBack(std::complex<TYPE>(re,im));
+					break;
+				}
+				case 5: //erase
+				{
+					if (vec1.GetSize() != 0)
+					{
+						try {
+							long int index = Number_needed(LONG_MIN, LONG_MAX, "\nInput index: ");
+							index--;
+							vec1.Erase(index);
+						}
+						catch (const char* err)
+						{
+							std::cout << err << std::endl;
+							system("pause");
+						}
+					}
+					else
+					{
+						std::cout << "\nNo more elements\n";
+						system("pause");
+					}
+					break;
+				}
+				}
+			}
+			system("cls");
+			break;
+		}
+		case 2: {
+			bool work2 = true;
+			while (work2)
+			{
+				system("cls");
+				std::cout << "You are working with second vector" << std::endl;
+				std::cout << vec2 << std::endl;
+				PrintChoicesAdditional();
+				long int key2 = Number_needed(0, 5, "Enter a number in range 0-5: ");
+				switch (key2)
+				{
+				case 0: // exit
+				{
+					work2 = false;
+					break;
+				}
+				case 1: // edit element
+				{
+					try {
+						long int index = Number_needed(LONG_MIN, LONG_MAX, "\nInput index: ");
+						index--;
+						vec2[index];
+						std::cout << "\nInput real part: ";
+						TYPE re = To_Number<TYPE>(Input_Number());
+						std::cout << "\nInput imag part: ";
+						TYPE im = To_Number<TYPE>(Input_Number());
+						vec2[index] = std::complex<TYPE>(re, im);
+					}
+					catch (const char* err)
+					{
+						std::cout << err << std::endl;
+						system("pause");
+					}
+					break;
+				}
+				case 2: // multiply by number
+				{
+					TYPE value = To_Number<TYPE>(Input_Number());
+					vec2 *= std::complex<TYPE>(value,value);
+					break;
+				}
+				case 3: // divide by number
+				{
+					TYPE value = To_Number<TYPE>(Input_Number());
+					try { vec2 /= value; }
+					catch (const char* err)
+					{
+						std::cout << err << std::endl;
+						system("pause");
+					}
+					break;
+				}
+				case 4: //pushback
+				{
+					std::cout << "\nInput real part: ";
+					TYPE re = To_Number<TYPE>(Input_Number());
+					std::cout << "\nInput imag part: ";
+					TYPE im = To_Number<TYPE>(Input_Number());
+					vec2.PushBack(std::complex<TYPE>(re, im));
+					break;
+				}
+				case 5: //erase
+				{
+					if (vec2.GetSize() != 0) {
+						try {
+							long int index = Number_needed(LONG_MIN, LONG_MAX, "\nInput index: ");
+							index--;
+							vec2.Erase(index);
+						}
+						catch (const char* err)
+						{
+							std::cout << err << std::endl;
+							system("pause");
+						}
+					}
+					else
+					{
+						std::cout << "\nNo more elements\n";
+						system("pause");
+					}
+					break;
+				}
+				}
+			}
+			system("cls");
+			break;
+		}
+		case 3: {
+			system("cls");
+			try
+			{
+				vector<std::complex<TYPE>> c = vec1 + vec2;
+				std::cout << "vector " << vec1 << "\n+\n" << "vector" << vec2 << "\n =\n " << c;
+			}
+			catch (const char* err)
+			{
+				std::cout << err << std::endl;
+			}
+			system("pause");
+			system("cls");
+			break;
+		}
+		case 4: {
+			system("cls");
+			try {
+				vector<std::complex<TYPE>> c = vec1 - vec2;
+				std::cout << "vector " << vec1 << "\n-\n" << "vector" << vec2 << "\n = \n" << c;
+			}
+			catch (const char* err)
+			{
+				std::cout << err << std::endl;
+			}
+			system("pause");
+			system("cls");
+			break;
+		}
+		case 5: { // multi vectors
+			system("cls");
+			try {
+				std::cout << "vector " << vec1 << "\n*\n" << "vector" << vec2 << "\n = \n" << vec1 * vec2 << "\n";
+			}
+			catch (const char* err) {
+				std::cout << err << std::endl;
+			}
+			system("pause");
+			system("cls");
+			break;
+		}
+		case 6: // Equals
+		{
+			system("cls");
+			std::string answer = vec1 == vec2 ? "Yes" : "No";
+			std::cout << vec1;
+			std::cout << vec2;
+			std::cout << "vector a  = vector b? - " << answer << "\n";
+			system("pause");
+			system("cls");
+			break;
+		}
+		}
+	}
+}
 int main()
 {
-	/*vector <std::complex<float>> a(3);
-	std::complex<float> number(2, 2);
-	a.PushBack(number);
-	std::cout << a;*/
 	vector<int> a_int(2);
 	vector<int> b_int(2);
 	vector<double> a_double(2);
@@ -387,10 +615,13 @@ int main()
 			break;
 		}
 		case 4: {
-			a_cd.PushBack(std::complex<double>(2, 3));
-			b_cd.PushBack(std::complex<double>(1, 1));
-			std::complex<double> x = a_cd * b_cd;
-			std::cout << x;
+			system("cls");
+			MenuForTwoVectors(a_cf, b_cf);
+			break;
+		}
+		case 5: {
+			system("cls");
+			MenuForTwoVectors(a_cd, b_cd);
 			break;
 		}
 		}

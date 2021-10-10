@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
-#include "Vector.h"
 #include <complex>
+#include "Vector.h"
 
 template <typename T>
 vector<T>::vector() {  // CONSTRUCTION
@@ -122,56 +122,11 @@ vector<T> vector<T>::operator-= (const vector<T>& vec) {    //OperatorMinusEqual
 //	}
 //	return result;
 //}
-template<typename T>
-T operator* (const vector<T>& vec1, const vector<T>& vec2)
-{
-	if (vec1.GetSize() != vec2.GetSize()) throw("Difference between sizes");
-	size_t size = vec1.GetSize();
-	T result = 0;
-	for (size_t i = 0; i < size; ++i) {
-	result += vec1[i] * vec2[i];
-	}
-	return result;
-}
 
-template<typename T>
-std::complex<T> operator* (const vector<std::complex<T>>& vec1, const vector<std::complex<T>>& vec2)
-{
-	if (vec1.GetSize() != vec2.GetSize()) throw("Difference between sizes");
-	size_t size = vec1.GetSize();
-	std::complex<T> result = 0;
-	for (size_t i = 0; i < size; ++i) {
-		result += std::complex<T>(vec1[i].real() * vec2[i].real(), vec1[i].imag()*vec2[i].imag()*(-1));
-	}
-	return result;
-}
-
-template <typename T>
-vector<T> vector<T>::operator*= (const vector<T>& vec) {  //OperatorMulltipliedEqualVector
-	for (size_t i = 0; i < size; ++i) {
-		v[i] = v[i] * vec.v[i];
-	}
-	return *this;
-}
-
-template <typename T>
-vector<T> vector<T>::operator*= (const T x) {   //OperatorMulltipliedEqualNumber
-	for (size_t i = 0; i < size; ++i) {
-		v[i] = v[i] * x;
-	}
-	return *this;
-}
-
-template <typename T>
-vector<T> vector<T>::operator* (const T x) {  // OperatorMultipliedbyNumberReturnNew
-	vector<T> Newbie = *this;
-	Newbie *= x;
-	return Newbie;
-}
 
 template <typename T>
 vector<T> vector<T>::operator/= (const T x) {   // OperatorDivideEqual
-	if (x == 0) throw("Cant divide by zero");
+	if (x == (T)0) throw("Cant divide by zero");
 	for (size_t i = 0; i < size; ++i) {
 		v[i] /= x;
 	}
@@ -180,7 +135,7 @@ vector<T> vector<T>::operator/= (const T x) {   // OperatorDivideEqual
 
 template <typename T>
 vector<T> vector<T>::operator/ (const T x) {    // OperatorDivide
-	if (x == 0) throw("Cant divide by zero");
+	if (x == (T)0) throw("Cant divide by zero");
 	vector<T> Newbie = *this;
 	Newbie /= x;
 	return Newbie;
@@ -263,18 +218,4 @@ std::ostream& operator<<(std::ostream& stream, const vector<T>& v) {
 	return stream;
 }
 
-template <typename T>
-vector<T> operator* (const double x, vector<T>& vec) {  //
-	vector result(vec);
-	for (size_t i = 0; i < vec.GetSize(); ++i) {
-		result[i] = x * vec[i];
-	}
-	return result;
-}
 
-template <typename T>
-vector<T> operator*= (const double x, vector<T>& vec)
-{
-	vec = vec * x;
-	return vec;
-}

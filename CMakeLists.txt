@@ -6,7 +6,7 @@ cmake_minimum_required (VERSION 3.8)
 project ("Lab2")
 
 # Add source to this project's executable.
-add_executable (main "VectorTemplate/main.cpp" "VectorTemplate/Vector.h" "VectorTemplate/Vector.cpp")
+add_executable (main "VectorTemplate/main.cpp" "VectorTemplate/Vector.h" "VectorTemplate/Vector.inl")
 
 # Включение высокого уровня предупреждений
 if(MSVC) # Компилятор MSVC /W3
