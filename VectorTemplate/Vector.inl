@@ -80,7 +80,7 @@ vector<T>& vector<T>::operator= (const vector<T>& vec) { //OperatorEqual
 		delete[] v;
 		size = vec.size;
 		capacity = vec.capacity;
-		v = new T[size];
+		v = new T[capacity];
 		for (size_t i = 0; i < size; ++i)
 		{
 			v[i] = vec.v[i];
@@ -112,17 +112,6 @@ vector<T> vector<T>::operator-= (const vector<T>& vec) {    //OperatorMinusEqual
 	}
 	return *this;
 }
-
-//template <typename T>
-//T vector<T>::operator* (const vector<T>& vec) {   // OperatorScalarMullti
-//	if (size != vec.size) throw("Difference between sizes");
-//	T result = 0;
-//	for (size_t i = 0; i < size; ++i) {
-//		result += vec.v[i] * v[i];
-//	}
-//	return result;
-//}
-
 
 template <typename T>
 vector<T> vector<T>::operator/= (const T x) {   // OperatorDivideEqual
@@ -199,8 +188,15 @@ void vector<T>::PushBack(const T &data) { //MethodPushBack
 		delete[] temp;
 	}
 	else {
-		v[size] = data;
-		size++;
+		if (v == nullptr) {
+			v = new T[capacity];
+			v[size] = data;
+			size++;
+		}
+		else {
+			v[size] = data;
+			size++;
+		}
 	}
 }
 

@@ -58,7 +58,7 @@ long int Number_needed(const long int left_border, const long int right_border, 
 void PrintChoices()
 {
 	std::cout << "  Press 1 - work with first vector\n  Press 2 - work with second vector\n  Press 3 - Vector addition\n";
-	std::cout << "  Press 4 - Vector difference\n  Press 5 - Scalar product of these vectors\n  Press 6 - vectors are equal?\n  Press 0 - for back to start menu";
+	std::cout << "  Press 4 - Vector difference\n  Press 5 - Scalar product of these vectors\n  Press 6 - vectors are equal?\n Press 7- vector 1 multiply by vector2\n Press 0 - for back to start menu";
 }
 void PrintChoicesAdditional()
 {
@@ -109,7 +109,7 @@ void MenuForTwoVectors(vector<TYPE>& vec1, vector<TYPE> vec2)
 		std::cout << vec1;
 		std::cout << vec2;
 		PrintChoices();
-		long int choice = Number_needed(0, 6, "Enter a number in range 0-6: ");
+		long int choice = Number_needed(0, 7, "Enter a number in range 0-7: ");
 		switch (choice) {
 		case 0: {
 			flag = false;
@@ -307,10 +307,10 @@ void MenuForTwoVectors(vector<TYPE>& vec1, vector<TYPE> vec2)
 			system("cls");
 			break;
 		}
-		case 5: { //multivectors
+		case 5: { //scalar
 			system("cls");
 			try {
-				std::cout << "vector " << vec1 << "\n*\n" << "vector" << vec2 << "\n = \n" << vec1 * vec2 << "\n";
+				std::cout << "vector " << vec1 << "\n*\n" << "vector" << vec2 << "\n = " << vec1.dot_point(vec2) << "\n";
 			}
 			catch (const char* err) {
 				std::cout << err << std::endl;
@@ -330,6 +330,19 @@ void MenuForTwoVectors(vector<TYPE>& vec1, vector<TYPE> vec2)
 			system("cls");
 			break;
 		}
+		case 7: //vector x vector
+		{
+			system("cls");
+			try {
+				std::cout << "vector " << vec1 << "\n*\n" << "vector" << vec2 << "\n = \n" << vec1 * vec2 << "\n";
+			}
+			catch (const char* err) {
+				std::cout << err << std::endl;
+			}
+			system("pause");
+			system("cls");
+			break;
+		}
 		}
 	}
 } 
@@ -341,7 +354,7 @@ void MenuForTwoVectors(vector<std::complex<TYPE>>& vec1, vector<std::complex<TYP
 		std::cout << vec1;
 		std::cout << vec2;
 		PrintChoices();
-		long int choice = Number_needed(0, 5, "Enter a number in range 0-5: ");
+		long int choice = Number_needed(0, 7, "Enter a number in range 0-7: ");
 		switch (choice) {
 		case 0: {
 			flag = false;
@@ -554,7 +567,7 @@ void MenuForTwoVectors(vector<std::complex<TYPE>>& vec1, vector<std::complex<TYP
 		case 5: { // multi vectors
 			system("cls");
 			try {
-				std::cout << "vector " << vec1 << "\n*\n" << "vector" << vec2 << "\n = \n" << vec1 * vec2 << "\n";
+				std::cout << "vector " << vec1 << "\n*\n" << "vector" << vec2 << "\n = " << vec1.dot_point(vec2) << "\n";
 			}
 			catch (const char* err) {
 				std::cout << err << std::endl;
@@ -570,6 +583,19 @@ void MenuForTwoVectors(vector<std::complex<TYPE>>& vec1, vector<std::complex<TYP
 			std::cout << vec1;
 			std::cout << vec2;
 			std::cout << "vector a  = vector b? - " << answer << "\n";
+			system("pause");
+			system("cls");
+			break;
+		}
+		case 7: //vector x vector
+		{
+			system("cls");
+			try {
+				std::cout << "vector " << vec1 << "\n*\n" << "vector" << vec2 << "\n = \n" << vec1 * vec2 << "\n";
+			}
+			catch (const char* err) {
+				std::cout << err << std::endl;
+			}
 			system("pause");
 			system("cls");
 			break;

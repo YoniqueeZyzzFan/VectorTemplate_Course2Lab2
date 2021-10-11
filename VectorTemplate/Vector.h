@@ -44,8 +44,18 @@ public:
 	bool operator!= (const vector& vec); // OperatorNotEqual
 	void Erase(const size_t index); //MethodErase
 	void PushBack(const T& data);  //MethodPushBack
+	template <typename TYPE>
+	vector<TYPE> operator* (const vector<TYPE>& vec) {
+		if (size!= vec.GetSize()) throw("Difference between sizes");
+		size_t size = vec.GetSize();
+		vector<TYPE> Newbie(*this);
+		for (size_t i = 0; i < size; i++) {
+			Newbie.v[i] *= vec.v[i];
+		}
+		return Newbie;
+	}
 	~vector();
-	T operator* (const vector<T>& vec1)
+	T dot_point (const vector<T>& vec1)
 	{
 		if (vec1.GetSize() != (*this).GetSize()) throw("Difference between sizes");
 		size_t size = vec1.GetSize();
@@ -55,7 +65,7 @@ public:
 		}
 		return result;
 	}
-	std::complex<T> operator* (const vector<std::complex<T>>& vec1)
+	std::complex<T> dot_point (const vector<std::complex<T>>& vec1)
 	{
 		if (vec1.GetSize() != (*this).GetSize()) throw("Difference between sizes");
 		size_t size = vec1.GetSize();
