@@ -26,6 +26,10 @@ TEST(VectorTemplate, ConstructionAndContrstuctionParam) {
 TEST(VectorTemplate, Getsize) {
 	vector<int> x;
 	EXPECT_EQ(0, x.GetSize());
+	vector <std::complex<double>> y;
+	y.PushBack(std::complex<double>(1, 2));
+	y.PushBack(std::complex<double>(2, 1));
+	EXPECT_EQ(2, y.GetSize());
 }
 TEST(VectorTemplate, ConstructionCopy)
 {
@@ -36,7 +40,7 @@ TEST(VectorTemplate, ConstructionCopy)
 	vector<int> b_int(a_int);
 	vector<std::complex<double>> a_cd;
 	for (size_t i = 0; i < 2; ++i) {
-		a_cd.PushBack(std::complex<double>(((double)i+1)*2, (double)i-1));
+		a_cd.PushBack(std::complex<double>(((double)i + 1) * 2, (double)i - 1));
 	}
 	vector<std::complex<double>> b_cd(a_cd);
 	EXPECT_EQ(true, a_int == b_int);
@@ -109,7 +113,16 @@ TEST(VectorTempalte, OperatorPluses) {
 	EXPECT_EQ(3, first[1]);
 	EXPECT_EQ(third[0], first[0] + second[0]);
 	EXPECT_EQ(third[1], first[1] + second[1]);
-} 
+}
+TEST(VectorTempalte, OperatorDivide) {
+	vector<float> first(2);
+	for (size_t i = 0; i < 2; ++i) {
+		first[i] = (float)i - 1;
+	}
+	first /= 2;
+	EXPECT_EQ(first[0], -0.5);
+	EXPECT_EQ(first[1], 0);
+}
 
 TEST(VectorTempalte, OperatorMinuses) {
 	vector<std::complex<double>> first(2);
@@ -117,13 +130,13 @@ TEST(VectorTempalte, OperatorMinuses) {
 	for (size_t i = 0; i < 2; ++i) {
 		first[i] = std::complex<double>((double)i, (double)i + 1);
 	}
-	for (size_t i = 0; i< 2; ++i) {
+	for (size_t i = 0; i < 2; ++i) {
 		second[i] = std::complex<double>((double)i + 1, (double)i);
 	}
 	vector<std::complex<double>> third = first - second;
 	first -= second;
 	EXPECT_EQ(third[0], first[0]);
-	EXPECT_EQ(third[1], first[1]);	
+	EXPECT_EQ(third[1], first[1]);
 }
 
 TEST(VectorTemplate, OperatorScalar)
@@ -154,7 +167,14 @@ TEST(VectorTemplate, MethodErase)
 		a_int.PushBack(((int)i + 1) * 2);
 	}
 	vector<int> b_int(a_int);
-	b_int.Erase(1);
+	b_int.Erase(b_int.begin() + 1);
 	EXPECT_EQ(1, b_int.GetSize());
-	EXPECT_THROW(b_int.Erase(4), const char*);
+	EXPECT_THROW(b_int.Erase(b_int.begin() + 5), const char*);
+	for (size_t i = 0; i < 10; ++i) {
+		a_int.PushBack((int)i + 2);
+	}
+	for (auto it = a_int.begin(); it != a_int.end(); ++it) {
+		a_int.Erase(it);
+	}
+	EXPECT_EQ(0, a_int.GetSize());
 }

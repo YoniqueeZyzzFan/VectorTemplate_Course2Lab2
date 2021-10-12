@@ -2,33 +2,32 @@
 #include <iostream>
 #include <string>
 #include <complex>
+#include <vector>
+#include <iterator>
 template <class T>
 class vector {
 private:
-	size_t capacity;
-	size_t size;
-	size_t grow_size;
-	T* v;
+	std::vector<T> v;
 public:
 	vector(); //constrictopn
 	vector(const size_t size);// CONSTRUCTION PARAM
-	vector(const vector& vec); // ConstructorCopy
 	size_t GetSize() const; //GetSize
 	T& operator[] (const size_t index); //OperatorSqBrackets
 	T operator[] (const size_t index) const; // SquareBrackets
+	auto begin() const; // iterator begin
+	auto end() const;// iterator end
 	vector operator+= (const vector& vec); // OperatorPlusEqual
-	vector operator+ (const vector& vec); //OperatorPlus
-	vector& operator= (const vector& vec); //OperatorEqual
+	vector operator+ (const vector& vec); //OperatorPlus	
 	vector operator- (const vector& vec); // OperatorMinus
 	vector operator-= (const vector& vec); //OperatorMinusEqual
 	vector<T> operator*= (const vector<T>& vec) {  //OperatorMulltipliedEqualVector
-		for (size_t i = 0; i < size; ++i) {
+		for (size_t i = 0; i < v.size(); ++i) {
 			v[i] = v[i] * vec.v[i];
 		}
 		return *this;
 	}
 	vector<T> operator*= (const T x) {   //OperatorMulltipliedEqualNumber
-		for (size_t i = 0; i < size; ++i) {
+		for (size_t i = 0; i < v.size(); ++i) {
 			v[i] *= x;
 		}
 		return *this;
@@ -42,11 +41,11 @@ public:
 	vector operator/ (const T x); // OperatorDivide
 	bool operator== (const vector& vec); //OperatorIsEqual
 	bool operator!= (const vector& vec); // OperatorNotEqual
-	void Erase(const size_t index); //MethodErase
+	void Erase(std::vector<T>::const_iterator index); //MethodErase
 	void PushBack(const T& data);  //MethodPushBack
 	template <typename TYPE>
 	vector<TYPE> operator* (const vector<TYPE>& vec) {
-		if (size!= vec.GetSize()) throw("Difference between sizes");
+		if (v.size() != vec.v.size()) throw("Difference between sizes");
 		size_t size = vec.GetSize();
 		vector<TYPE> Newbie(*this);
 		for (size_t i = 0; i < size; i++) {
@@ -54,8 +53,7 @@ public:
 		}
 		return Newbie;
 	}
-	~vector();
-	T dot_point (const vector<T>& vec1)
+	T dot_point(const vector<T>& vec1)
 	{
 		if (vec1.GetSize() != (*this).GetSize()) throw("Difference between sizes");
 		size_t size = vec1.GetSize();
@@ -65,7 +63,7 @@ public:
 		}
 		return result;
 	}
-	std::complex<T> dot_point (const vector<std::complex<T>>& vec1)
+	std::complex<T> dot_point(const vector<std::complex<T>>& vec1)
 	{
 		if (vec1.GetSize() != (*this).GetSize()) throw("Difference between sizes");
 		size_t size = vec1.GetSize();
