@@ -2,8 +2,8 @@
 #include <iostream>
 #include <complex>
 #include<vector>
-#include "Vector.h"
 #include<iterator>
+#include "Vector.h"
 template <typename T>
 vector<T>::vector() {  // CONSTRUCTION
 
@@ -99,8 +99,8 @@ bool vector<T>::operator!= (const vector<T>& vec) {     // OperatorNotEqual
 }
 
 template <typename T>
-void vector<T>::Erase(std::vector<T>::const_iterator index) {  //MethodErase
-	v.erase(v.begin() + index);
+auto vector<T>::Erase(typename std::vector<T>::const_iterator index) {  //MethodErase
+	return v.erase(index);
 }
 template <typename T>
 auto vector<T>::begin() const
@@ -126,7 +126,5 @@ std::ostream& operator<<(std::ostream& stream, const vector<T>& v) {
 	}
 	return stream;
 }
-
-
 
 

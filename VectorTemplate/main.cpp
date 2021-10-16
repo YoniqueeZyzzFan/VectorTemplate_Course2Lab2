@@ -5,7 +5,7 @@
 #include <climits>
 #include <complex>
 
-bool StrToLong(const std::string str,  long int* value)
+bool StrToLong(const std::string str, long int* value)
 {
 	char* endptr = NULL;
 	*value = strtol(str.c_str(), &endptr, 0);
@@ -17,7 +17,7 @@ bool StrToLong(const std::string str,  long int* value)
 template <typename RETURN_TYPE>
 RETURN_TYPE To_Number(const std::string& str) {
 	std::stringstream temp;
-	temp<< str;
+	temp << str;
 	RETURN_TYPE value;
 	temp >> value;
 	return value;
@@ -78,7 +78,7 @@ std::string Input_Number() {
 	while (flag) {
 		std::cout << "\nInput your value : ";
 		std::cin >> input;
-		if (&input == nullptr) { 
+		if (&input == nullptr) {
 			std::cout << "Your value is empty, repeat";
 			continue;
 		}
@@ -90,7 +90,7 @@ std::string Input_Number() {
 				break;
 			}
 			if (int(input[i]) - int('0') >= 0 && int(input[i]) - int('0') <= 9) {
-				flag = false; 
+				flag = false;
 				break;
 			}
 			else {
@@ -177,7 +177,7 @@ void MenuForTwoVectors(vector<TYPE>& vec1, vector<TYPE> vec2)
 						try {
 							long int index = Number_needed(LONG_MIN, LONG_MAX, "\nInput index: ");
 							index--;
-							vec1.Erase(index);
+							(vec1.begin()._Ptr + index) <= (vec1.end()._Ptr - 1) ? vec1.Erase(vec1.begin() + index) : throw "Cant erase non-exist element";
 						}
 						catch (const char* err)
 						{
@@ -258,7 +258,7 @@ void MenuForTwoVectors(vector<TYPE>& vec1, vector<TYPE> vec2)
 						try {
 							long int index = Number_needed(LONG_MIN, LONG_MAX, "\nInput index: ");
 							index--;
-							vec2.Erase(index);
+							(vec2.begin()._Ptr + index) <= (vec2.end()._Ptr - 1) ? vec2.Erase(vec2.begin() + index) : throw "Cant erase non-exist element";
 						}
 						catch (const char* err)
 						{
@@ -282,7 +282,7 @@ void MenuForTwoVectors(vector<TYPE>& vec1, vector<TYPE> vec2)
 			system("cls");
 			try
 			{
-				vector<TYPE> c = vec1+ vec2;
+				vector<TYPE> c = vec1 + vec2;
 				std::cout << "vector " << vec1 << "\n+\n" << "vector" << vec2 << "\n =\n " << c;
 			}
 			catch (const char* err)
@@ -345,7 +345,7 @@ void MenuForTwoVectors(vector<TYPE>& vec1, vector<TYPE> vec2)
 		}
 		}
 	}
-} 
+}
 template <typename TYPE>
 void MenuForTwoVectors(vector<std::complex<TYPE>>& vec1, vector<std::complex<TYPE>> vec2)
 {
@@ -398,7 +398,7 @@ void MenuForTwoVectors(vector<std::complex<TYPE>>& vec1, vector<std::complex<TYP
 				case 2: // multiply by number
 				{
 					TYPE value = To_Number<TYPE>(Input_Number());
-					vec1 *= std::complex<TYPE>(value,value);
+					vec1 *= std::complex<TYPE>(value, value);
 					break;
 				}
 				case 3: // divide by number
@@ -418,7 +418,7 @@ void MenuForTwoVectors(vector<std::complex<TYPE>>& vec1, vector<std::complex<TYP
 					TYPE re = To_Number<TYPE>(Input_Number());
 					std::cout << "\nInput imag part: ";
 					TYPE im = To_Number<TYPE>(Input_Number());
-					vec1.PushBack(std::complex<TYPE>(re,im));
+					vec1.PushBack(std::complex<TYPE>(re, im));
 					break;
 				}
 				case 5: //erase
@@ -428,7 +428,7 @@ void MenuForTwoVectors(vector<std::complex<TYPE>>& vec1, vector<std::complex<TYP
 						try {
 							long int index = Number_needed(LONG_MIN, LONG_MAX, "\nInput index: ");
 							index--;
-							vec1.Erase(index);
+							(vec1.begin()._Ptr + index) <= (vec1.end()._Ptr - 1) ? vec1.Erase(vec1.begin() + index) : throw "Cant erase non-exist element";
 						}
 						catch (const char* err)
 						{
@@ -486,7 +486,7 @@ void MenuForTwoVectors(vector<std::complex<TYPE>>& vec1, vector<std::complex<TYP
 				case 2: // multiply by number
 				{
 					TYPE value = To_Number<TYPE>(Input_Number());
-					vec2 *= std::complex<TYPE>(value,value);
+					vec2 *= std::complex<TYPE>(value, value);
 					break;
 				}
 				case 3: // divide by number
@@ -515,7 +515,7 @@ void MenuForTwoVectors(vector<std::complex<TYPE>>& vec1, vector<std::complex<TYP
 						try {
 							long int index = Number_needed(LONG_MIN, LONG_MAX, "\nInput index: ");
 							index--;
-							vec2.Erase(index);
+							(vec2.begin()._Ptr + index) <= (vec2.end()._Ptr - 1) ? vec2.Erase(vec2.begin() + index) : throw "Cant erase non-exist element";
 						}
 						catch (const char* err)
 						{
@@ -612,11 +612,11 @@ int main()
 	vector<float> a_float(2);
 	vector<float> b_float(2);
 	vector<std::complex<double>> a_cd(2);
-	vector<std::complex<double>> b_cd(2);		
+	vector<std::complex<double>> b_cd(2);
 	vector<std::complex<float>> a_cf(2);
 	vector<std::complex<float>> b_cf(2);
 	bool work = true;
-	while (work){
+	while (work) {
 		system("cls");
 		PrintStart();
 		long int key = Number_needed(0, 6, "Enter a number in range 0-6: ");
@@ -624,7 +624,7 @@ int main()
 		case 0: {
 			work = false;
 			break;
-		 } // exit programm
+		} // exit programm
 		case 1: {
 			system("cls");
 			MenuForTwoVectors(a_int, b_int);
@@ -653,5 +653,3 @@ int main()
 		}
 	}
 }
-
-

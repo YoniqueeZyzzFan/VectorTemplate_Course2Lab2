@@ -41,7 +41,7 @@ public:
 	vector operator/ (const T x); // OperatorDivide
 	bool operator== (const vector& vec); //OperatorIsEqual
 	bool operator!= (const vector& vec); // OperatorNotEqual
-	void Erase(std::vector<T>::const_iterator index); //MethodErase
+	auto Erase(typename std::vector<T>::const_iterator index); //MethodErase
 	void PushBack(const T& data);  //MethodPushBack
 	template <typename TYPE>
 	vector<TYPE> operator* (const vector<TYPE>& vec) {

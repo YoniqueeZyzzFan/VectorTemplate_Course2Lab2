@@ -167,14 +167,20 @@ TEST(VectorTemplate, MethodErase)
 		a_int.PushBack(((int)i + 1) * 2);
 	}
 	vector<int> b_int(a_int);
-	b_int.Erase(b_int.begin() + 1);
+	b_int.Erase(b_int.begin()+1);
 	EXPECT_EQ(1, b_int.GetSize());
-	EXPECT_THROW(b_int.Erase(b_int.begin() + 5), const char*);
 	for (size_t i = 0; i < 10; ++i) {
 		a_int.PushBack((int)i + 2);
 	}
-	for (auto it = a_int.begin(); it != a_int.end(); ++it) {
-		a_int.Erase(it);
+
+	/*auto i = a_int.begin();
+	while (i != a_int.end()) {
+		a_int.Erase(i);
+		i = a_int.begin();
+	}*/
+	auto it = a_int.begin();
+	for (; it != a_int.end();) {
+		it = a_int.Erase(it);
 	}
 	EXPECT_EQ(0, a_int.GetSize());
 }
