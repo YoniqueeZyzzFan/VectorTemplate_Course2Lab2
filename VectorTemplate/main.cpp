@@ -310,7 +310,7 @@ void MenuForTwoVectors(vector<TYPE>& vec1, vector<TYPE> vec2)
 		case 5: { //scalar
 			system("cls");
 			try {
-				std::cout << "vector " << vec1 << "\n*\n" << "vector" << vec2 << "\n = " << vec1.dot_point(vec2) << "\n";
+				std::cout << "vector " << vec1 << "\n*\n" << "vector" << vec2 << "\n = " << vec1.DotPoint(vec2) << "\n";
 			}
 			catch (const char* err) {
 				std::cout << err << std::endl;
@@ -567,7 +567,7 @@ void MenuForTwoVectors(vector<std::complex<TYPE>>& vec1, vector<std::complex<TYP
 		case 5: { // multi vectors
 			system("cls");
 			try {
-				std::cout << "vector " << vec1 << "\n*\n" << "vector" << vec2 << "\n = " << vec1.dot_point(vec2) << "\n";
+				std::cout << "vector " << vec1 << "\n*\n" << "vector" << vec2 << "\n = " << vec1.DotPoint(vec2) << "\n";
 			}
 			catch (const char* err) {
 				std::cout << err << std::endl;

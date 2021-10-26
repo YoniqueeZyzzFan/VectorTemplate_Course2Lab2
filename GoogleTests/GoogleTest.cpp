@@ -152,13 +152,13 @@ TEST(VectorTemplate, OperatorScalar)
 		b_cd[i] = std::complex<double>(b_d[i], a_d[i]);
 	}
 	vector<double> c_d = a_d * b_d;
-	double scalar_d = a_d.dot_point(b_d);
+	double scalar_d = a_d.DotPoint(b_d);
 	vector <std::complex<double>> c_cd;
 	c_cd = a_cd * b_cd;
-	std::complex<double> scalar_cd = a_cd.dot_point(b_cd);
+	std::complex<double> scalar_cd = a_cd.DotPoint(b_cd);
 	EXPECT_EQ(c_d[0], 2);
 	EXPECT_EQ(c_d[1], 6);
-	EXPECT_EQ(scalar_cd, a_cd.dot_point(b_cd));
+	EXPECT_EQ(scalar_cd, a_cd.DotPoint(b_cd));
 }
 TEST(VectorTemplate, MethodErase)
 {

@@ -34,7 +34,7 @@ T vector<T>::operator[] (const size_t index) const {       // SquareBrackets
 }
 
 template <typename T>
-vector<T> vector<T>::operator+= (const vector<T>& vec) {       // OperatorPlusEqual
+vector<T>& vector<T>::operator+= (const vector<T>& vec) {       // OperatorPlusEqual
 	if (v.size() != vec.v.size()) throw("Difference between sizes");
 	for (size_t i = 0; i < v.size(); ++i) {
 		v[i] += vec.v[i];
@@ -43,7 +43,7 @@ vector<T> vector<T>::operator+= (const vector<T>& vec) {       // OperatorPlusEq
 }
 
 template <typename T>
-vector<T> vector<T>::operator+ (const vector<T>& vec) {     //OperatorPlus
+vector<T> vector<T>::operator+ (const vector<T>& vec) const {     //OperatorPlus
 	if (v.size() != vec.v.size()) throw("Difference between sizes");
 	vector<T> Newbie(*this);
 	Newbie += vec;
@@ -52,14 +52,14 @@ vector<T> vector<T>::operator+ (const vector<T>& vec) {     //OperatorPlus
 
 
 template <typename T>
-vector<T> vector<T>::operator- (const vector<T>& vec) {   // OperatorMinus
+vector<T> vector<T>::operator- (const vector<T>& vec) const {   // OperatorMinus
 	vector<T> Newbie = *this;
 	Newbie -= vec;
 	return Newbie;
 }
 
 template <typename T>
-vector<T> vector<T>::operator-= (const vector<T>& vec) {    //OperatorMinusEqual
+vector<T>& vector<T>::operator-= (const vector<T>& vec) {    //OperatorMinusEqual
 	if (v.size() != vec.v.size()) throw("Difference between sizes");
 	for (size_t i = 0; i < v.size(); ++i) {
 		v[i] = v[i] - vec.v[i];
@@ -85,7 +85,7 @@ vector<T> vector<T>::operator/ (const T x) {    // OperatorDivide
 }
 
 template <typename T>
-bool vector<T>::operator== (const vector<T>& vec) {    //OperatorIsEqual
+bool vector<T>::operator== (const vector<T>& vec) const {    //OperatorIsEqual
 	if (v.size() != vec.v.size()) return false;
 	for (size_t i = 0; i < v.size(); ++i) {
 		if (v[i] != vec.v[i]) return false;
@@ -94,7 +94,7 @@ bool vector<T>::operator== (const vector<T>& vec) {    //OperatorIsEqual
 }
 
 template <typename T>
-bool vector<T>::operator!= (const vector<T>& vec) {     // OperatorNotEqual
+bool vector<T>::operator!= (const vector<T>& vec) const {     // OperatorNotEqual
 	return (!(*this == vec));
 }
 
@@ -116,6 +116,16 @@ auto vector<T>::end() const
 template <typename T>
 void vector<T>::PushBack(const T& data) { //MethodPushBack
 	v.push_back(data);
+}
+
+template <class T>
+vector<T>& vector<T>::operator=(const vector<T>& rhs) //Operator equal
+{
+	if (this == &rhs) return *this;
+	for (size_t i = 0; i < rhs.v.size(); ++i) {
+		v[i] = rhs.v[i];
+	}
+	return *this;
 }
 
 template <typename T>

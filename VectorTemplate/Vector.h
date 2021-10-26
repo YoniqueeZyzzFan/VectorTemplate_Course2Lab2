@@ -5,6 +5,10 @@
 #include <vector>
 #include <iterator>
 template <class T>
+
+
+
+
 class vector {
 private:
 	std::vector<T> v;
@@ -14,12 +18,13 @@ public:
 	size_t GetSize() const; //GetSize
 	T& operator[] (const size_t index); //OperatorSqBrackets
 	T operator[] (const size_t index) const; // SquareBrackets
-	auto begin() const; // iterator begin
+	auto begin() const; // iterator begins
 	auto end() const;// iterator end
-	vector operator+= (const vector& vec); // OperatorPlusEqual
-	vector operator+ (const vector& vec); //OperatorPlus	
-	vector operator- (const vector& vec); // OperatorMinus
-	vector operator-= (const vector& vec); //OperatorMinusEqual
+	vector& operator+= (const vector& vec); // OperatorPlusEqual
+	vector operator+ (const vector& vec) const; //OperatorPlus	
+	vector operator- (const vector& vec) const; // OperatorMinus
+	vector& operator-= (const vector& vec); //OperatorMinusEqual
+	vector<T>& vector<T>::operator=(const vector<T>& rhs); // Operator Equal
 	vector<T> operator*= (const vector<T>& vec) {  //OperatorMulltipliedEqualVector
 		for (size_t i = 0; i < v.size(); ++i) {
 			v[i] = v[i] * vec.v[i];
@@ -39,8 +44,8 @@ public:
 	}
 	vector operator/= (const T x); // OperatorDivideEqual
 	vector operator/ (const T x); // OperatorDivide
-	bool operator== (const vector& vec); //OperatorIsEqual
-	bool operator!= (const vector& vec); // OperatorNotEqual
+	bool operator== (const vector& vec) const; //OperatorIsEqual
+	bool operator!= (const vector& vec) const; // OperatorNotEqual
 	auto Erase(typename std::vector<T>::const_iterator index); //MethodErase
 	void PushBack(const T& data);  //MethodPushBack
 	template <typename TYPE>
@@ -53,7 +58,7 @@ public:
 		}
 		return Newbie;
 	}
-	T dot_point(const vector<T>& vec1)
+	T DotPoint(const vector<T>& vec1) const 
 	{
 		if (vec1.GetSize() != (*this).GetSize()) throw("Difference between sizes");
 		size_t size = vec1.GetSize();
@@ -63,7 +68,7 @@ public:
 		}
 		return result;
 	}
-	std::complex<T> dot_point(const vector<std::complex<T>>& vec1)
+	std::complex<T> DotPoint(const vector<std::complex<T>>& vec1) const 
 	{
 		if (vec1.GetSize() != (*this).GetSize()) throw("Difference between sizes");
 		size_t size = vec1.GetSize();
